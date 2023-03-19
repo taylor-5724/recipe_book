@@ -1,7 +1,23 @@
 import argparse
 import sys
 
+metadata = {'title' : '',
+            'difficulty' : '',
+            'author' : ''}
+
+ingredients = {}
+
 def add_recipe():
+    while (metadata['title'] == ''):
+        print('type recipe title:')
+        metadata['title'] = input()
+
+    print('input recipe difficulty "e, m, or h":')
+    metadata['difficulty'] = input()
+
+    print('type recipe author:')
+    metadata['author'] = input()
+
     print('adding')
 
 def search_recipes():
@@ -12,11 +28,14 @@ def list_recipes():
 
 def set_dir():
     global directory
+
     directory = user_input.setdir_input
     print('save directory set to: ' + user_input.setdir_input)
 
 
-def user_input_get():
+def get_user_input():
+    global user_input
+
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers()
 
@@ -38,12 +57,10 @@ def user_input_get():
     if len(sys.argv) <= 1:
         sys.argv.append('--help')
 
-    global user_input
-
     user_input = parser.parse_args()
 
 
-user_input_get()
+get_user_input()
 user_input.command()
 
 
