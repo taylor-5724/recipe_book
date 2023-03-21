@@ -1,5 +1,6 @@
 saved_dir = './'
 #^preferences^
+#i am saving preferences directly to the script so that it is self contained
 
 import argparse
 import sys
@@ -33,7 +34,7 @@ def list_recipes():
     print('listing')
 
 def set_dir():
-
+    
     with open('recipes.py') as read_file, open('recipes.temp', 'w') as write_file:
         line_number = 0
         for line in read_file:
