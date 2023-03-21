@@ -1,16 +1,22 @@
+saved_dir = './'
+#^preferences^
+
 import argparse
 import sys
+import os
+import re
 
 metadata = {'title' : '',
             'difficulty' : '',
             'author' : ''}
 
-ingredients = {}
-
 def add_recipe():
     while (metadata['title'] == ''):
         print('type recipe title:')
         metadata['title'] = input()
+        if(metadata['title'] == 'recipes.py'):
+            metadata['title'] = ''
+            print('invalid title')
 
     print('input recipe difficulty "e, m, or h":')
     metadata['difficulty'] = input()
@@ -27,10 +33,28 @@ def list_recipes():
     print('listing')
 
 def set_dir():
-    global directory
 
-    directory = user_input.setdir_input
+    with open('recipes.py') as read_file, open('recipes.temp', 'w') as write_file:
+        line_number = 0
+        for line in read_file:
+            line_number = line_number + 1
+            if line_number == 1:
+                write_file.write('saved_dir = \'' + user_input.setdir_input + '\'\n')
+            else:
+                write_file.write(line)
+
+    os.system('rm recipes.py')
+    os.system('mv recipes.temp recipes.py')
+
     print('save directory set to: ' + user_input.setdir_input)
+
+    sys.exit()
+
+def get_dir():
+    return saved_dir
+
+def save_data():
+    print('saved to :' + get_dir())
 
 
 def get_user_input():
@@ -62,70 +86,4 @@ def get_user_input():
 
 get_user_input()
 user_input.command()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+save_data()
