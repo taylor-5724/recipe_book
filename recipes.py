@@ -1,4 +1,4 @@
-saved_dir = './'
+saved_dir = './stored_recipes'
 #^preferences^
 #i am saving preferences directly to the script so that it is self contained
 
@@ -25,7 +25,13 @@ def add_recipe():
     print('type recipe author:')
     metadata['author'] = input()
 
-    print('adding')
+    file_name = metadata['title']
+    file_name = file_name + '[' + metadata['difficulty'] + ']'
+    file_name = file_name + '(' + metadata['author'] + ').rcp'
+
+    with open(get_dir() + file_name, 'w') as f:
+        print ('written')
+
 
 def search_recipes():
     print(user_input.search_input)
@@ -52,11 +58,10 @@ def set_dir():
     sys.exit()
 
 def get_dir():
+    global saved_dir
+    if saved_dir[len(saved_dir) - 1] != '/':
+        saved_dir = saved_dir + '/'
     return saved_dir
-
-def save_data():
-    print('saved to :' + get_dir())
-
 
 def get_user_input():
     global user_input
@@ -87,4 +92,3 @@ def get_user_input():
 
 get_user_input()
 user_input.command()
-save_data()
